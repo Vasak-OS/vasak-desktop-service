@@ -2,6 +2,7 @@ import gi
 import json
 gi.require_version('Wnck', '3.0')
 from gi.repository import Wnck
+from datetime import datetime
 import Lynx.Icons as icons
 
 
@@ -50,3 +51,12 @@ class LynxScreen:
 
     def get_windows(self):
         return self.get_screen().get_windows()
+    
+    def toggleWindow(self, idWindow):
+        for win in self.get_windows():
+            if win.get_xid() == idWindow:
+                if win.is_minimized():
+                    win.unminimize(datetime.timestamp(datetime.now()))
+                else:
+                    win.minimize()
+
