@@ -1,5 +1,5 @@
 from Lynx.Screen import LynxScreen
-from Lynx.DBus import client
+from Lynx.DBus import client, Service
 from gi.repository import GLib
 from gi.repository import Gio
 from dbus.mainloop.glib import DBusGMainLoop
@@ -9,11 +9,11 @@ import sys
 import os
 
 if __name__ == "__main__":
-    
-    dockDBus = client('ar.net.lynx.os.dock')
-    lScreen = LynxScreen(dockDBus)
-
-
     DBusGMainLoop(set_as_default=True)
     loop = GLib.MainLoop()
+
+    dockDBus = client('ar.net.lynx.os.dock')
+    lScreen = LynxScreen(dockDBus)    
+    Service(lScreen)
+
     loop.run()
