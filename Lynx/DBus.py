@@ -8,15 +8,11 @@ def client(busName):
 
 class Service(dbus.service.Object):
 
-    def __init__(self):
-        bus_name = service.BusName("ar.net.lynx.os.service", dbus.SessionBus())
-        service.Object.__init__(self, bus_name, "/ar/net/lynx/os/service")
+    def __init__(self, screenParam):
+        self.screen = screenParam
+        bus_name = service.BusName("ar.net.lynx.os.desktop.service", dbus.SessionBus())
+        service.Object.__init__(self, bus_name, "/ar/net/lynx/os/desktop/service")
 
-    @dbus.service.method("ar.net.lynx.os.service", in_signature='', out_signature='')
-    def toggleLauncher(self):
-        print(1)
-
-    @dbus.service.method("ar.net.lynx.os.service", in_signature='', out_signature='')
-    def screenToggle(self):
-        print(1)
-    
+    @dbus.service.method("ar.net.lynx.os.desktop.service", in_signature='s', out_signature='')
+    def toggleWindow(self, idWindow):
+        self.screen.toggleWindow(int(idWindow))
