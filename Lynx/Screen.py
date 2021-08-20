@@ -28,7 +28,6 @@ class LynxScreen:
 
     def sendWindwosToDesktop(self):
         windows = self.get_windows_to_desktop()
-        print(windows)
         self.dockdbus.UpdateWindowsDock(windows)
         
     def nameValid(self, name):
