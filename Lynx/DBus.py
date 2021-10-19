@@ -1,5 +1,6 @@
 import dbus
 import dbus.service as service
+import json
 
 def client(busName):
     bus = dbus.SessionBus()
@@ -20,4 +21,9 @@ class Service(dbus.service.Object):
     
     @dbus.service.method("ar.net.lynx.os.desktop.service", in_signature='', out_signature='s')
     def getNotifications(self):
-        return self.notify.getNotifications()
+        return str(self.notify.getNotifications())
+
+    @dbus.service.method("ar.net.lynx.os.desktop.service", in_signature='s', out_signature='')
+    def addNotification(self, noti):
+        print(noti)
+        self.notify.addNotification(json.loads(noti))

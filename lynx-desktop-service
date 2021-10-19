@@ -2,41 +2,17 @@ from Lynx.Screen import LynxScreen
 from Lynx.DBus import client, Service
 from Lynx.Notifications import Notifications
 from gi.repository import GLib
-from gi.repository import Gio
 from dbus.mainloop.glib import DBusGMainLoop
-import socket
-import threading
-import dbus
-import sys
-import os
 
-lynxNotify = Notifications()
-
-def notifications(dbus,message):
-    keys = ["app_name", "replaces_id", "app_icon", "summary",
-          "body", "actions", "hints", "expire_timeout"]
-    args = message.get_args_list()
-    if len(args) == 8:
-        notification = dict([(keys[i], args[i]) for i in range(8)])
-        lynxNotify.addNotification({
-            'id' : lynxNotify.getNetxID(),
-            'title': str(notification['summary']),
-            'body': str(notification['body']),
-            'icon': str(notification['app_icon'])
-        })
 
 if __name__ == "__main__":
     DBusGMainLoop(set_as_default=True)
     loop = GLib.MainLoop()
-    
 
     dockDBus = client('ar.net.lynx.os.dock')
-    lScreen = LynxScreen(dockDBus)    
-    Service(lScreen, lynxNotify)
-
-    notifyDBus = dbus.SessionBus()
-    notifyDBus.add_match_string_non_blocking("type='method_call',interface='org.freedesktop.Notifications',member='Notify',eavesdrop=true")
-    notifyDBus.add_message_filter(notifications)
+    lScreen = LynxScreen(dockDBus)
+    lynxNotify = Notifications()
+    serviceDbus = Service(lScreen, lynxNotify)
 
     loop.run()
 
