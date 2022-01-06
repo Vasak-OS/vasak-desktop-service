@@ -16,7 +16,7 @@ def get(icon: str) -> str:
   if icon is None:
     icon = not_found(icon)
 
-  EXTENSIONS = (".png", ".svg", ".jpg", ".jpeg", ".gif")
+  EXTENSIONS = (".png", ".svg", ".jpg", ".jpeg", ".gif", ".webp")
   if icon.endswith(EXTENSIONS):
     # if image has full icon path return icon.
     if icon.startswith("/"):
