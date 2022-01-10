@@ -13,12 +13,12 @@ temp_windows = screen.get_windows()
 
 for win in temp_windows:
   if (str(win.get_pid()) == sys.argv[1] or win.get_class_instance_name() == 'lynx-dock'):
-    win.set_window_type(2)
-    print(win.get_xid())
-    win.make_above()
-
     display = Display()
     topw = display.create_resource_object('window', win.get_xid())
+    
+    win.set_window_type(2)
+    print(win.get_xid())
+
     topw.change_property(display.intern_atom('_NET_WM_STRUT'),
                        display.intern_atom('CARDINAL'), 32,
                        [0, 0, 34, 0 ],
