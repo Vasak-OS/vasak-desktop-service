@@ -17,6 +17,11 @@ for win in temp_windows:
     topw = display.create_resource_object('window', win.get_xid())
     
     win.set_window_type(2)
+    win.set_skip_tasklist(true)
+    win.set_skip_pager(true)
+    win.stick()
+    win.make_above()
+    win.unshade()
     print(win.get_xid())
 
     topw.change_property(display.intern_atom('_NET_WM_STRUT'),
