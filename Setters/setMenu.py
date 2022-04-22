@@ -11,3 +11,4 @@ for win in temp_windows:
     win.set_window_type(5)
     win.set_skip_tasklist(True)
     win.set_skip_pager(True)
+    win.unshade()
