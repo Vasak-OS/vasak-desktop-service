@@ -17,8 +17,8 @@ for win in temp_windows:
     topw = display.create_resource_object('window', win.get_xid())
     
     win.set_window_type(2)
-    win.set_skip_tasklist(true)
-    win.set_skip_pager(true)
+    win.set_skip_tasklist(True)
+    win.set_skip_pager(True)
     win.stick()
     win.make_above()
     win.unshade()
