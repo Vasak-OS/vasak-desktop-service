@@ -1,1 +1,1 @@
-sleep 1 && python /usr/share/Lynx/lynx-desktop-service/main.py
+sleep 1 && python /usr/share/Lynx/lynx-desktop-service/main.py &
