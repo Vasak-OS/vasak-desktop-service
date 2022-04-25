@@ -1,16 +1,22 @@
 import gi
 import json
+import dbus
+import json
+import dbus.service as service
 gi.require_version('Wnck', '3.0')
 from gi.repository import Wnck
 from datetime import datetime
 import Lynx.Icons as icons
 
 
-class LynxScreen:
+class LynxScreen(dbus.service.Object):
 
-    def __init__(self, dockDBus):
+    def __init__(self, dockDBus, notify):
         self.minimized_windows = []
         self.dockdbus = dockDBus
+        self.notify = notify
+        bus_name = service.BusName("ar.net.lynx.os.desktop.service", dbus.SessionBus())
+        service.Object.__init__(self, bus_name, "/ar/net/lynx/os/desktop/service")
         self.get_screen().connect('window-opened', self.window_open_cb)
         self.get_screen().connect('window-closed', self.window_closed_cb)
     
@@ -51,11 +57,20 @@ class LynxScreen:
     def get_windows(self):
         return self.get_screen().get_windows()
     
+    @dbus.service.method("ar.net.lynx.os.desktop.service", in_signature='s', out_signature='')
     def toggleWindow(self, idWindow):
         for win in self.get_windows():
-            if win.get_xid() == idWindow:
+            if win.get_xid() == int(idWindow):
                 if win.is_minimized():
                     win.unminimize(datetime.timestamp(datetime.now()))
                 else:
                     win.minimize()
 
+    @dbus.service.method("ar.net.lynx.os.desktop.service", in_signature='', out_signature='s')
+    def getNotifications(self):
+        return str(self.notify.getNotifications())
+
+    @dbus.service.method("ar.net.lynx.os.desktop.service", in_signature='s', out_signature='')
+    def addNotification(self, noti):
+        print(noti)
+        self.notify.addNotification(json.loads(noti))
