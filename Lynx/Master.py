@@ -11,9 +11,8 @@ import Lynx.Icons as icons
 
 class LynxMaster(dbus.service.Object):
 
-    def __init__(self, dockDBus, notify):
+    def __init__(self, notify):
         self.minimized_windows = []
-        self.dockdbus = dockDBus
         self.notify = notify
         bus_name = service.BusName("ar.net.lynx.os.desktop.service", dbus.SessionBus())
         service.Object.__init__(self, bus_name, "/ar/net/lynx/os/desktop/service")
@@ -34,8 +33,13 @@ class LynxMaster(dbus.service.Object):
 
     def sendWindwosToDesktop(self):
         windows = self.get_windows_to_desktop()
-        self.dockdbus.UpdateWindowsDock(windows)
+        self.updateWindows(windows)
         
+    @dbus.service.signal('ar.net.lynx.os.desktop.service', signature='s')
+    def updateWindows(self, windows):
+        return str(windows)
+        pass
+
     def nameValid(self, name):
         return (name != 'lynx-dock' and
                 name != 'lynx-desktop' and
@@ -58,7 +62,7 @@ class LynxMaster(dbus.service.Object):
     def get_windows(self):
         return self.get_screen().get_windows()
     
-    @dbus.service.method("ar.net.lynx.os.desktop.service", in_signature='s', out_signature='')
+    @dbus.service.method('ar.net.lynx.os.desktop.service', in_signature='s', out_signature='')
     def toggleWindow(self, idWindow):
         for win in self.get_windows():
             if win.get_xid() == int(idWindow):
@@ -67,11 +71,11 @@ class LynxMaster(dbus.service.Object):
                 else:
                     win.minimize()
 
-    @dbus.service.method("ar.net.lynx.os.desktop.service", in_signature='', out_signature='s')
+    @dbus.service.method('ar.net.lynx.os.desktop.service', in_signature='', out_signature='s')
     def getNotifications(self):
         return str(self.notify.getNotifications())
 
-    @dbus.service.method("ar.net.lynx.os.desktop.service", in_signature='s', out_signature='')
+    @dbus.service.method('ar.net.lynx.os.desktop.service', in_signature='s', out_signature='')
     def addNotification(self, noti):
         print(noti)
         self.notify.addNotification(json.loads(noti))
