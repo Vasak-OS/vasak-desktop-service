@@ -1,0 +1,10 @@
+[Unit]
+Description=Service and DBUS for LynxOS
+
+[Service]
+User=root
+ExecStart=lynx-desktop-Service
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
