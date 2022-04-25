@@ -1,4 +1,4 @@
-from Lynx.Screen import LynxScreen
+from Lynx.Master import LynxMaster
 from Lynx.DBus import client
 from Lynx.Notifications import Notifications
 from gi.repository import GLib
@@ -12,7 +12,7 @@ if __name__ == "__main__":
     dockDBus = client('ar.net.lynx.os.dock')
 
     lynxNotify = Notifications()
-    lScreen = LynxScreen(dockDBus, lynxNotify)
+    lScreen = LynxMaster(dockDBus, lynxNotify)
 
     loop.run()
 

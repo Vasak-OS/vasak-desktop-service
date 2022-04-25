@@ -9,7 +9,7 @@ from datetime import datetime
 import Lynx.Icons as icons
 
 
-class LynxScreen(dbus.service.Object):
+class LynxMaster(dbus.service.Object):
 
     def __init__(self, dockDBus, notify):
         self.minimized_windows = []
@@ -38,7 +38,8 @@ class LynxScreen(dbus.service.Object):
         
     def nameValid(self, name):
         return (name != 'lynx-dock' and
-                name != 'lynx-desktop')
+                name != 'lynx-desktop' and
+                name != 'lynx-menu')
 
     def get_windows_to_desktop(self):
         temp_list = []
