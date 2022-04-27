@@ -3,7 +3,7 @@ Description=Service and DBUS for LynxOS
 
 [Service]
 User=root
-ExecStart=lynx-desktop-Service
+ExecStart=lynx-desktop-service
 Restart=always
 
 [Install]
