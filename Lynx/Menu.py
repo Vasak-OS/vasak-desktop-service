@@ -9,6 +9,9 @@ class Get:
   def __init__(self):
     self.menu_path = "/etc/xdg/menus/lynx-applications.menu"
 
+  def fixDescription(self, description):
+    return description.replace('\'', ' ')
+
   def build(self, menu=None, iteration=0, category=None, output={}):
     it = menu.iter()
     it_type = it
@@ -40,7 +43,7 @@ class Get:
           'category': f'{category}',
           'name': f'{app.get_display_name()}',
           'generic': f'{app.get_generic_name()}',
-          'description': f'{app.get_description()}',
+          'description': f'{self.fixDescription(str(app.get_description()))}',
           'icon': f'{icons.get(icon)}',
           'keywords': f'{" ".join(app.get_keywords())}',
           'path': f'{item.get_desktop_file_path()}'
