@@ -11,6 +11,7 @@ for win in temp_windows:
     win.set_window_type(1)
     win.pin()
     win.make_below()
+    win.stick()
     win.set_skip_tasklist(True)
     win.set_skip_pager(True)
     win.unshade()
