@@ -40,7 +40,6 @@ class VasakMaster(dbus.service.Object):
     @dbus.service.signal('ar.net.vasak.os.desktop.service', signature='s')
     def updateWindows(self, windows):
         return str(windows)
-        pass
 
     def nameValid(self, name):
         return (name != 'lynx-dock' and
