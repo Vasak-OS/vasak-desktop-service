@@ -8,7 +8,7 @@ gi.require_version('GMenu', '3.0')
 
 class Get:
     def __init__(self):
-        self.menu_path = "/etc/xdg/menus/lynx-applications.menu"
+        self.menu_path = "/etc/xdg/menus/hydriam-applications.menu"
 
     def fixDescription(self, description):
         return description.replace('\'', ' ')
