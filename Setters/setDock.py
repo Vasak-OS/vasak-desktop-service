@@ -12,7 +12,7 @@ screen.force_update()
 temp_windows = screen.get_windows()
 
 for win in temp_windows:
-    if (str(win.get_pid()) == sys.argv[1] or win.get_class_instance_name() == 'lynx-dock'):
+    if (str(win.get_pid()) == sys.argv[1] or win.get_class_instance_name() == 'navale'):
         display = Display()
         topw = display.create_resource_object('window', win.get_xid())
 
