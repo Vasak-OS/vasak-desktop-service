@@ -8,7 +8,9 @@ screen.force_update()
 temp_windows = screen.get_windows()
 
 for win in temp_windows:
-    if (str(win.get_pid()) == sys.argv[1] or win.get_class_instance_name() == 'hydriam'):
+    if (str(win.get_pid()) == sys.argv[1] or
+        win.get_class_instance_name() == 'hydriam' or
+        win.get_class_instance_name() == 'Hydriam'):
         win.set_window_type(5)
         win.set_skip_tasklist(True)
         win.set_skip_pager(True)

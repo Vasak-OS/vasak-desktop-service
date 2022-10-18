@@ -44,7 +44,10 @@ class VasakMaster(dbus.service.Object):
     def nameValid(self, name):
         return (name != 'navale' and
                 name != 'vasak-desktop' and
-                name != 'hydriam')
+                name != 'hydriam' and
+                name != 'Navale' and
+                name != 'Vasak Desktop' and
+                name != 'Hydriam')
 
     def get_windows_to_desktop(self):
         temp_list = []
