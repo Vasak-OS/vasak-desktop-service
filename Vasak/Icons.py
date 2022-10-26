@@ -1,8 +1,8 @@
+import gi
+gi.require_version('Gtk', '3.0')
 from functools import lru_cache as cache
 from gi.repository import Gtk
 import os
-import gi
-gi.require_version('Gtk', '3.0')
 
 
 def not_found(icon):

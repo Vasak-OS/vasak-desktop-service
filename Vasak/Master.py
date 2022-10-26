@@ -1,12 +1,12 @@
+import gi
+gi.require_version('Wnck', '3.0')
 import Vasak.Icons as icons
 from datetime import datetime
 from gi.repository import Wnck
-import gi
 import json
 import dbus
 import json
 import dbus.service as service
-gi.require_version('Wnck', '3.0')
 
 
 class VasakMaster(dbus.service.Object):
