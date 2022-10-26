@@ -1,11 +1,11 @@
-from Xlib import X
-from Xlib.display import Display
-import Xlib
-from gi.repository import Wnck, Gtk, Gdk
 import gi
-import sys
 gi.require_version('Wnck', '3.0')
 gi.require_version("Gtk", "3.0")
+
+from Xlib import X
+from Xlib.display import Display
+from gi.repository import Wnck
+import sys
 
 screen = Wnck.Screen.get_default()
 screen.force_update()
@@ -14,7 +14,7 @@ temp_windows = screen.get_windows()
 for win in temp_windows:
     if (str(win.get_pid()) == sys.argv[1] or
         win.get_class_instance_name() == 'navale' or
-        win.get_class_instance_name() == 'Navale'):
+            win.get_class_instance_name() == 'Navale'):
         display = Display()
         topw = display.create_resource_object('window', win.get_xid())
 

@@ -1,25 +1,25 @@
-import Icons as icons
-from gi.repository import GMenu, Gio
 import gi
-import json
-from functools import lru_cache
 gi.require_version('GMenu', '3.0')
+
+import vasak.icons as icons
+from gi.repository import GMenu, Gio
+from functools import lru_cache
 
 
 class Get:
     def __init__(self):
         self.menu_path = "/etc/xdg/menus/hydriam-applications.menu"
 
-    def fixDescription(self, description):
+    def fix_description(self, description):
         return description.replace('\'', ' ')
 
     def build(self, menu=None, iteration=0, category=None, output={}):
-        it = menu.iter()
-        it_type = it
+        iter_v = menu.iter()
+        it_type = iter_v
         while it_type is not GMenu.TreeItemType.INVALID:
             if it_type is GMenu.TreeItemType.DIRECTORY:
 
-                item = it.get_directory()
+                item = iter_v.get_directory()
                 category = item.get_name()
                 #dump(categorie, iteration)
                 output[f'{category}'] = {}
@@ -31,7 +31,7 @@ class Get:
 
             elif it_type is GMenu.TreeItemType.ENTRY:
 
-                item = it.get_entry()
+                item = iter_v.get_entry()
                 app = item.get_app_info()
                 icon = app.get_icon()
 
@@ -45,13 +45,13 @@ class Get:
                     'category': f'{category}',
                     'name': f'{app.get_display_name()}',
                     'generic': f'{app.get_generic_name()}',
-                    'description': f'{self.fixDescription(str(app.get_description()))}',
+                    'description': f'{self.fix_description(str(app.get_description()))}',
                     'icon': f'{icons.get(icon)}',
                     'keywords': f'{" ".join(app.get_keywords())}',
                     'path': f'{item.get_desktop_file_path()}'
                 })
 
-            it_type = it.next()
+            it_type = iter_v.next()
 
         return output
 
