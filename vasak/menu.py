@@ -1,7 +1,7 @@
 import gi
 gi.require_version('GMenu', '3.0')
 
-import vasak.icons as icons
+from vasak import icons
 from gi.repository import GMenu, Gio
 from functools import lru_cache
 
